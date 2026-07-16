@@ -12,11 +12,12 @@ const User_1 = require("./models/User");
 const Workout_1 = require("./models/Workout");
 const app = (0, express_1.default)();
 const port = 8000;
-const codespacesDomain = 'app.github.dev';
 const codespaceName = process.env.CODESPACE_NAME;
-const apiBaseUrl = codespaceName
-    ? `https://${codespaceName}-${port}.${codespacesDomain}`
-    : `http://localhost:${port}`;
+const localhostApiBaseUrl = `http://localhost:${port}`;
+const codespacesApiBaseUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev`
+    : null;
+const apiBaseUrl = codespacesApiBaseUrl ?? localhostApiBaseUrl;
 app.use(express_1.default.json());
 const usersRouter = express_1.default.Router();
 usersRouter.get('/', async (_req, res) => {
