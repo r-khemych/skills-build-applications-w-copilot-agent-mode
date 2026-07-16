@@ -1,6 +1,5 @@
 import express from 'express';
 import './config/database';
-import { getApiBaseUrl } from './config/baseUrl';
 import { Activity } from './models/Activity';
 import { Leaderboard } from './models/Leaderboard';
 import { Team } from './models/Team';
@@ -9,7 +8,11 @@ import { Workout } from './models/Workout';
 
 const app = express();
 const port = 8000;
-const apiBaseUrl = getApiBaseUrl();
+const codespacesDomain = 'app.github.dev';
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+  ? `https://${codespaceName}-${port}.${codespacesDomain}`
+  : `http://localhost:${port}`;
 
 app.use(express.json());
 

@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("./config/database");
-const baseUrl_1 = require("./config/baseUrl");
 const Activity_1 = require("./models/Activity");
 const Leaderboard_1 = require("./models/Leaderboard");
 const Team_1 = require("./models/Team");
@@ -13,7 +12,11 @@ const User_1 = require("./models/User");
 const Workout_1 = require("./models/Workout");
 const app = (0, express_1.default)();
 const port = 8000;
-const apiBaseUrl = (0, baseUrl_1.getApiBaseUrl)();
+const codespacesDomain = 'app.github.dev';
+const codespaceName = process.env.CODESPACE_NAME;
+const apiBaseUrl = codespaceName
+    ? `https://${codespaceName}-${port}.${codespacesDomain}`
+    : `http://localhost:${port}`;
 app.use(express_1.default.json());
 const usersRouter = express_1.default.Router();
 usersRouter.get('/', async (_req, res) => {
