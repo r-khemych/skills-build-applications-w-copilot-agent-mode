@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 
 const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim()
-const apiHost = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev`
-  : 'http://localhost:8000'
-const endpoint = `${apiHost}/api/leaderboard/`
+const endpoint = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev/api/leaderboard/`
+  : 'http://localhost:8000/api/leaderboard/'
 
 function normalizeCollection(payload) {
   if (Array.isArray(payload)) {
